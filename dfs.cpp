@@ -15,8 +15,9 @@ class Node {
 
 vector<Node*> dfs(Node* root) {
 	stack<Node*> stk;
-	stk.push(root);
 	vector<Node*> visited;
+	if (!root) return visited;
+	stk.push(root);
 	while (!stk.empty()) {
 		Node* current = stk.top();
 		stk.pop();
