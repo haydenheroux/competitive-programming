@@ -1,15 +1,24 @@
 #!/bin/sh
 
-if [ ! -e "/bin/g++" ] || [ ! -e "/bin/rm" ]; then
+if [ ! -e "/bin/g++" ]; then
 	exit 1
 fi
 
-
 # Compile using g++
-/bin/g++ $1 -o "${1}.out" -g -O0 -Wall &&
+/bin/g++ "$1" -o "$1.out" -g -O0 -Wall
+
+# If compilation errored print an error message
+if [ $? -ne 0 ]; then
+	printf "err: compilation of $1\n"
+	exit
+fi
 
 # Run binary
-/bin/sh -c "./${1}.out" ||
+/bin/sh -c "./$1.out"
 
-# If the binary failed remove it
-/bin/rm "./${1}.out"
+# If execution errored print an error message and remove the executable
+if [ $? -ne 0 ]; then
+	printf "err: execution of $1\n"
+	rm "./$1.out"
+	exit
+fi
