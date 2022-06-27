@@ -22,6 +22,15 @@ double max_sum(Node* root) {
 	return root->v + greatest;
 }
 
+double min_sum(Node* root) {
+	if (!root) return INFINITY;
+
+	double least = min(min_sum(root->l), min_sum(root->r));
+
+	if (least == INFINITY) return root->v;
+	return root->v + least;
+}
+
 int main() {
 	Node *a = new Node;
 	Node *b = new Node;
@@ -44,6 +53,7 @@ int main() {
 	b->r = e;
 
 	c->r = f;
-	cout << max_sum(a) << endl;
+	cout << "max: " << max_sum(a) << endl;
+	cout << "min: " << min_sum(a) << endl;
 	return 0;
 }
