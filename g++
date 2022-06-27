@@ -1,0 +1,15 @@
+#!/bin/sh
+
+if [ ! -e "/bin/g++" ] || [ ! -e "/bin/rm" ]; then
+	exit 1
+fi
+
+
+# Compile using g++
+/bin/g++ $1 -o "${1}.out" -g -O0 -Wall &&
+
+# Run binary
+/bin/sh -c "./${1}.out" ||
+
+# If the binary failed remove it
+/bin/rm "./${1}.out"
